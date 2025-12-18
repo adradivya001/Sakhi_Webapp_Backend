@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation & Misc
+*.md
+!README.md
+*.docx
+*.txt
+!requirements.txt
+
+# Test files
+test_*.py
+*_test.py
+debug_*.py
+quick_test.py
+trigger_chat.py
+
+# SQL files
+*.sql
+
+# Data files
+*.json
+!package*.json
+
+# Logs
+*.log

@@ -1,0 +1,529 @@
+{
+    "document_structure": [
+        {
+            "level": "H1",
+            "title": "Emotional & Social Questions (Fear, Stigma & Hope)",
+            "semantic_summary": "This section addresses the psychological and social challenges faced by individuals undergoing fertility treatments, including managing familial expectations, coping with grief and anxiety related to treatment outcomes, dealing with social stigma and judgment, and navigating personal feelings about parenthood.",
+            "children": [
+                {
+                    "level": "H2",
+                    "title": "Navigating Social Pressures and Stigma",
+                    "semantic_summary": "This sub-section covers strategies for managing external social pressures, explaining treatment to family, and coping with the fear of judgment and societal expectations regarding family formation.",
+                    "children": [
+                        {
+                            "level": "H3",
+                            "title": "My in-laws are asking why we don't have kids yet. How do I explain this treatment to them?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "The textbooks emphasize that the diagnosis and treatment of infertility require adequate patient preparation and counseling. The explanation should be handled with sensitivity, often by framing the treatment as a medical procedure to overcome a physical barrier, rather than a moral or personal failing. Counseling is recommended to help couples manage the social pressure and stigma associated with infertility."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "I'm scared of what people will say if this IVF doesn't work—how do I deal with this fear of judgment?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Fear of judgment and social stigma is a documented component of the stress associated with infertility treatment. Psychological counseling services are designed to help couples develop coping strategies to manage these external pressures, allowing them to focus on the treatment without excessive fear of societal opinion."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Is marriage only for having children?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "The medical texts acknowledge that infertility causes distress, frustration, and sadness, indicating that the desire for parenthood is a core, significant component of many marital units, leading them to seek treatment. The texts confirm the immense psychological weight placed on childbearing goals within the context of the couple's relationship."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "level": "H2",
+                    "title": "Emotional Responses and Support during Treatment",
+                    "semantic_summary": "This sub-section addresses common emotional experiences during fertility treatment, such as fear, sadness, grief, and the importance of partner involvement and psychological support.",
+                    "children": [
+                        {
+                            "level": "H3",
+                            "title": "Can my husband come with me for every scan? I feel scared going alone.",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "While not a strict medical requirement, the participation of both partners is crucial for psychological support. Involvement of the male partner in appointments and procedures is often encouraged by ART programs to help manage the patient's anxiety and reduce the emotional burden, especially during frequent monitoring visits (scans and blood tests)."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "I feel very low and cry a lot after seeing pregnancy announcements on WhatsApp—is this normal?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Feelings of grief, anger, anxiety, and depression are documented and considered normal psychological responses to infertility and its treatment. The emotional toll of waiting, failure, and being surrounded by others' successes is recognized. These feelings confirm the need for psychological support services in ART centers."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "When my periods came after IVF failed, I felt like I lost a baby—is this grief normal?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "The experience of infertility is frequently described as a \"crisis\" and a form of loss, and the failure of an IVF cycle can induce intense feelings of grief. This emotional response is considered normal within the context of infertility treatment, highlighting the need for specialized psychological intervention and support to help the patient process the failure."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": "H1",
+            "title": "Treatment Specific Questions (Process, Time & Details)",
+            "semantic_summary": "This section provides information about various Assisted Reproductive Technology (ART) procedures, including egg freezing, assisted hatching, male fertility treatments, and the influence of age on treatment success rates.",
+            "children": [
+                {
+                    "level": "H2",
+                    "title": "Specific ART Procedures and Techniques",
+                    "semantic_summary": "This sub-section details particular fertility treatment methods such as egg freezing, laser assisted hatching, and comprehensive male fertility treatments offered by clinics.",
+                    "children": [
+                        {
+                            "level": "H3",
+                            "title": "What is \"Egg Freezing\"? Can I freeze my eggs now and have a baby later?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Egg freezing, or Oocyte Cryopreservation, is a process where a woman's eggs are retrieved, frozen (usually by vitrification), and stored for later use. It is used to preserve fertility for future use, either for medical reasons (e.g., before cancer treatment) or for elective \"social freezing\". The frozen oocytes can be thawed, fertilized, and transferred into the uterus at a later date."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "I heard about \"Laser Assisted Hatching.\" Do you do that here? Does it help?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Assisted Hatching (AH), often done using a laser (Laser-Assisted Hatching or LAH), is a micromanipulation technique where an opening is created in the outer layer of the embryo (the zona pellucida). This is done to theoretically help the embryo \"hatch\" and implant. It is generally applied to specific cases, such as in women of advanced maternal age, those with prior IVF failure, or embryos with a thick zona pellucida."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Do you have male fertility treatments? Or is this hospital only for women?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Comprehensive fertility clinics address both male and female factors. Male factor infertility is treated through various means, including Intracytoplasmic Sperm Injection (ICSI) and surgical sperm retrieval techniques like TESE (Testicular Sperm Extraction) or PESA (Percutaneous Epididymal Sperm Aspiration). A modern ART center must offer diagnostic and therapeutic services for both partners."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "level": "H2",
+                    "title": "Age-Related Factors in Treatment",
+                    "semantic_summary": "This sub-section focuses on how maternal age impacts the success rates of fertility treatments, particularly for women over 40.",
+                    "children": [
+                        {
+                            "level": "H3",
+                            "title": "What is the success rate for women over 40 years old at Medcy?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Maternal age is the strongest predictor of IVF success. For women over 40 using their own eggs, the success rates decline significantly due to reduced ovarian reserve and increased chromosomal abnormalities. While the specific success rate for any individual clinic (like Medcy) is not in the textbooks, the principle of age-related decline is a highly established medical fact."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": "H1",
+            "title": "Success Rates & \"What If\" Scenarios",
+            "semantic_summary": "This section explores various aspects of fertility treatment success rates, including factors influencing IVF and IUI outcomes, recommendations for repeated cycles, and the likelihood and management of multiple gestations.",
+            "children": [
+                {
+                    "level": "H2",
+                    "title": "General Success Rates and Cycle Expectations",
+                    "semantic_summary": "This sub-section provides an overview of success rates for IVF and IUI, factors influencing these rates, and guidance on the number of cycles to attempt.",
+                    "children": [
+                        {
+                            "level": "H3",
+                            "title": "What are the success rates for IVF here?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "IVF success is measured by the Live Birth Rate or Clinical Pregnancy Rate per transfer. These rates are highly variable and depend directly on factors such as maternal age, the specific cause of infertility, and the number and quality of embryos transferred. The specific success rate for an individual clinic is not available in the general medical textbooks."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "If the first cycle doesn't work, how many times should we try?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "The cumulative chance of success increases with repeated cycles. Many centers suggest trying up to three to four fresh IVF cycles. The final decision to continue is highly individualized, depending on financial resources, emotional endurance, and the patient's prognosis based on previous cycle outcomes."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "What is the success rate of IUI?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "The clinical pregnancy rate per cycle of Intrauterine Insemination (IUI) is generally in the range of 5% to 20%, which is significantly lower than IVF. Medical guidelines often recommend limiting IUI attempts to three to four cycles before transitioning to IVF."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "level": "H2",
+                    "title": "Multiple Gestation Risks and Management",
+                    "semantic_summary": "This sub-section addresses the possibility of twins or multiple births in IVF and how clinics manage this risk through practices like Single Embryo Transfer (SET).",
+                    "children": [
+                        {
+                            "level": "H3",
+                            "title": "Can we expect twins from IVF treatment?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Yes, the likelihood of multiple gestation (twins, triplets) is significantly higher in IVF, which occurs when multiple embryos are transferred. However, to minimize the serious risks associated with multiple births, the medical trend is moving towards Single Embryo Transfer (SET)."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "What is the approximate success rate of giving birth to twins with IVF?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "The rate of twin gestation is a consequence of the number of embryos transferred. If two embryos are transferred, the probability of both implanting is higher than natural conception. The overall rate of multiple gestation can be as high as 20–30% or more when multiple embryos are transferred, with twins being the most common multiple birth."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "What are the chances of getting twins in IVF treatment?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "The chances are highly dependent on the number of embryos transferred. To minimize the risk, ART centers are generally advised to transfer only a single embryo, especially in good-prognosis patients. The rate of multiple births is a major complication that is actively managed by limiting the number of embryos transferred."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": "H1",
+            "title": "Diet, Lifestyle, & Generic Questions",
+            "semantic_summary": "This section addresses common patient inquiries regarding diet, lifestyle, daily activities, potential side effects of medication, and the impact of age and habits on fertility during and outside of treatment.",
+            "children": [
+                {
+                    "level": "H2",
+                    "title": "Dietary Recommendations and Myths",
+                    "semantic_summary": "This sub-section clarifies common dietary myths, provides guidance on healthy eating during fertility treatment, and discusses specific foods that can support egg quality and manage conditions like PCOS.",
+                    "children": [
+                        {
+                            "level": "H3",
+                            "title": "Doctor, should I stop eating spicy food or pickles during treatment?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "The medical textbooks do not support the restriction of specific non harmful cultural foods like spicy food or pickles. The focus is on ensuring general good nutrition and avoiding harmful substances. Specific dietary myths are not supported by the medical texts."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Should I eat \"heat\" foods (like papaya or chicken) or \"cold\" foods?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Medical textbooks do not use or support the concept of \"heat\" or \"cold\" foods in relation to fertility or IVF success. The focus is exclusively on maintaining a well-balanced diet and a healthy body weight based on nutritional composition (protein, vitamins, minerals)."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "After starting IVF treatment, what kind of food should I eat daily for better results?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "A well-balanced, nutritionally complete diet is universally recommended. This includes adequate protein, fruits, vegetables, and whole grains, and is aimed at maintaining a healthy Body Mass Index (BMI), as both obesity and being underweight can impair IVF outcomes."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "What natural foods can help improve my egg quality?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Medical focus is on general nutritional health, including adequate antioxidants and micronutrients. A diet rich in fruits, vegetables, and healthy fats (like the Mediterranean diet) is associated with better overall reproductive health, which contextually supports egg quality."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Is eating non-veg like chicken or fish okay while taking fertility medicines, or should I avoid?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Lean chicken and fish are generally acceptable and provide important protein. Fish, especially fatty fish, is a good source of beneficial omega-3 fatty acids. These foods can be part of a healthy diet during fertility treatment."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "What are some easy homemade foods that can help boost fertility naturally?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Homemade foods rich in folate, iron, and protein (e.g., lentils, beans, whole-grain dishes) are beneficial, as they support the underlying principle that a balanced diet and weight normalization are key fertility boosters."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Is protein powder safe during IVF?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "The safety of commercial protein powders is not specifically addressed. Adequate protein intake is vital, but any powder used should be a pure source without unnecessary additives or unverified supplements that could potentially interact with fertility medications."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "What are the foods that we need to take and to avoid for improving egg quality?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Take: Foods that support a healthy BMI and provide essential nutrients like antioxidants, folate, and Omega-3s. Avoid: Excessive caffeine, excessive alcohol, and smoking. Maintaining a healthy weight is paramount."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "How can we improve egg quality with diet?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Egg quality is strongly linked to overall maternal health. The primary dietary intervention is achieving and maintaining a healthy body weight (BMI). Diets that follow the principles of the Mediterranean diet (rich in vegetables, whole grains, and healthy oils) are associated with improved fertility."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "What are the foods that should be taken for PCOD and PCOS?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "For Polycystic Ovary Syndrome (PCOS), dietary management primarily focuses on weight loss and maintenance of a healthy BMI (if overweight). A diet that helps manage insulin resistance, typically lower in refined carbohydrates and sugars, and rich in complex carbohydrates and fiber, is often recommended."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Indian foods help for better sex health?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "The medical textbooks focus on a general diet that supports overall cardiovascular and metabolic health, as conditions like obesity and diabetes negatively impact reproductive and sexual function. No specific cuisine is correlated with \"better sex health\"."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "level": "H2",
+                    "title": "Lifestyle and Activity During Treatment",
+                    "semantic_summary": "This sub-section provides guidance on physical activities, work, and travel during fertility treatment, including post-procedure recommendations and managing daily routines.",
+                    "children": [
+                        {
+                            "level": "H3",
+                            "title": "Can I travel by auto or bus after the embryo transfer? The roads in my village are bumpy.",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "While strict bed rest is not recommended as it does not improve pregnancy rates, the general advice is to avoid strenuous physical activity immediately following the transfer. Gentle travel is generally permissible, but patients should try to minimize high-impact movements, though this is a clinical recommendation rather than a rule based on strong evidence."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Can I continue my job during the treatment? I work in a standing job.",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Most patients can continue their normal work and lifestyle during the stimulation phase. Following procedures like egg retrieval and embryo transfer, avoiding strenuous physical activity, heavy lifting, or high-impact exercise is advised for a short period. Light to moderate work and activity, including jobs involving standing, are generally not contra-indicated."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Is it okay to climb stairs after the procedure? We live on the second floor.",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Yes, normal, gentle activities like climbing stairs are generally safe and permissible after procedures like embryo transfer. The medical recommendation is to avoid strenuous exercise and heavy lifting, but routine movement does not adversely affect implantation or pregnancy rates."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Do I need to take leave from work for the whole month?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "No, taking leave for the entire month is not required. Leave is typically only necessary for the procedures: the day of egg retrieval (due to sedation) and possibly a day or two afterward, and sometimes the day of the embryo transfer."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Can I use Indian-style toilets, or do I need a western commode after IVF?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "The use of either toilet style is generally considered acceptable. The medical concern after embryo transfer is avoiding straining or heavy lifting. The action of squatting is a normal physical movement and is not medically proven to hinder implantation."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "level": "H2",
+                    "title": "Impact of Habits on Fertility",
+                    "semantic_summary": "This sub-section addresses how habits such as smoking and alcohol consumption by either partner can negatively affect fertility and sperm quality.",
+                    "children": [
+                        {
+                            "level": "H3",
+                            "title": "My husband smokes/drinks. Will that stop us from having a baby?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Smoking and excessive alcohol consumption by the male partner are known to negatively impact sperm quality (count, motility, and morphology), which can significantly reduce the chances of conception. Cessation of smoking and moderation/elimination of alcohol are strongly recommended before and during fertility treatment."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "My husband doesn't eat vegetables properly - will that affect his sperm count?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "A diet lacking essential micronutrients and antioxidants (commonly found in vegetables) can compromise reproductive health. A diet low in antioxidants may increase oxidative stress, which is detrimental to sperm quality (motility and morphology)."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Does smoking and drinking affect the chances of fertility?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Yes. Smoking is associated with reduced fecundity, lower sperm counts/motility, and a higher risk of miscarriage. Excessive alcohol consumption also negatively impacts fertility and is advised against for both partners."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Is there any chance of reducing fertility because of smoking and drinking?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Yes, there is a clear, established link that both smoking and high levels of alcohol consumption reduce fertility in both men and women. They can impair ovarian function and decrease sperm quality."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "level": "H2",
+                    "title": "Age and Fertility",
+                    "semantic_summary": "This sub-section clarifies the significant impact of maternal and paternal age on fertility, dispelling myths and providing biological facts about optimal reproductive age and age-related decline.",
+                    "children": [
+                        {
+                            "level": "H3",
+                            "title": "Does age really affect our chances?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Yes, maternal age is the single most important predictor of success in ART. Female fertility declines significantly after the age of 35, and the rate of decline accelerates after 40, primarily due to a decline in oocyte quantity and quality (increase in aneuploidy)."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "What is the correct age for getting pregnant?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "From a purely biological perspective, the highest fertility rates and the lowest risks of complications are observed in women in their early to mid-twenties. Medically, fertility starts to decline steadily after age 32 and more sharply after 37."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Is it a myth that infertility occurs only because of age?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "Yes, it is a myth. While age is a primary factor, infertility can be caused by numerous factors, including male factors (30–40%), ovulatory dysfunction, tubal disease, endometriosis, and unexplained factors."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Sperm and Age relation?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "While the effect is less pronounced than for female age, advanced paternal age (generally defined as over 40 or 50) is associated with an increased risk of certain genetic mutations in sperm and a slight decline in sperm quality parameters (count and motility)."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "level": "H2",
+                    "title": "General Treatment Timeline and Side Effects",
+                    "semantic_summary": "This sub-section provides an overview of the typical duration of fertility treatments and addresses common concerns like potential weight gain due to hormonal medications.",
+                    "children": [
+                        {
+                            "level": "H3",
+                            "title": "How many months will it take to get pregnant once we start?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "An IVF cycle takes approximately 4–6 weeks from the start of stimulation to the pregnancy test. For less invasive treatments like IUI, success usually occurs within the first 3–4 cycles. The total time to achieve pregnancy depends on the underlying cause and whether multiple cycles are required."
+                                }
+                            ]
+                        },
+                        {
+                            "level": "H3",
+                            "title": "Will I gain a lot of weight because of these medicines?",
+                            "chunks": [
+                                {
+                                    "source_id": "unknown_source",
+                                    "text": "The hormonal medications can cause temporary weight gain or bloating due to fluid retention and ovarian enlargement. While this is usually transient, the most significant risk of rapid fluid/weight gain is associated with Ovarian Hyperstimulation Syndrome (OHSS). Long-term, significant weight gain is not a standard side effect of the short-term use of these medications."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
