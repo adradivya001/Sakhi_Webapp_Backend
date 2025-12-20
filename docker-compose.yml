@@ -3,7 +3,7 @@ version: '3.8'
 services:
   sakhi-backend:
     build: .
-    container_name: sakhi-whatsapp-backend
+    container_name: sakhi-webapp-backend
     ports:
       - "8100:8100"
     env_file:
