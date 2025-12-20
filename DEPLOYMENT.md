@@ -39,7 +39,7 @@ docker ps
 docker logs -f sakhi-whatsapp-backend
 
 # 7. Test
-curl http://localhost:8000/
+curl http://localhost:8100/
 ```
 
 ### Updating After Changes
@@ -71,18 +71,18 @@ SUPABASE_URL=your_url
 SUPABASE_SERVICE_ROLE=your_key
 OPENAI_API_KEY=your_key
 SLM_ENDPOINT=your_endpoint  # if using SLM
-PORT=8000
+PORT=8100
 ```
 
 ## Firewall (if needed)
 
 ```bash
-sudo ufw allow 8000
+sudo ufw allow 8100
 sudo ufw status
 ```
 
 ## Access Your API
 
-- Local: `http://localhost:8000/`
-- External: `http://your-server-ip:8000/`
+- Local: `http://localhost:8100/`
+- External: `http://your-server-ip:8100/`
 - With domain: `http://your-domain.com/` (if using Nginx)

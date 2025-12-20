@@ -35,7 +35,7 @@ def create_parent_profile(
         "answers_json": answers_json,
     }
     
-    result = supabase_insert("parent_profiles", data)
+    result = supabase_insert("sakhi_parent_profiles", data)
     return result[0] if isinstance(result, list) and len(result) > 0 else result
 
 
@@ -56,7 +56,7 @@ def update_parent_profile_answers(
     match_filter = f"parent_profile=eq.{parent_profile_id}"
     data = {"answers_json": answers_json}
     
-    result = supabase_update("parent_profiles", match_filter, data)
+    result = supabase_update("sakhi_parent_profiles", match_filter, data)
     return result[0] if isinstance(result, list) and len(result) > 0 else result
 
 
@@ -71,8 +71,9 @@ def get_parent_profile(parent_profile_id: str) -> Optional[Dict[str, Any]]:
         Parent profile record or None if not found
     """
     filters = f"parent_profile=eq.{parent_profile_id}"
-    result = supabase_select("parent_profiles", select="*", filters=filters)
+    result = supabase_select("sakhi_parent_profiles", select="*", filters=filters)
     
     if isinstance(result, list) and len(result) > 0:
         return result[0]
     return None
+

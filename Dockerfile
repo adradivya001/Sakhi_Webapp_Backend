@@ -7,7 +7,7 @@ WORKDIR /app
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PORT=8000
+    PORT=8100
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -25,11 +25,11 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY . .
 
 # Expose port (can be overridden)
-EXPOSE 8000
+EXPOSE 8100
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD python -c "import requests; requests.get('http://localhost:8000/')"
+    CMD python -c "import requests; requests.get('http://localhost:8100/')"
 
 # Run the application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8100"]

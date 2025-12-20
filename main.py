@@ -505,6 +505,13 @@ def onboarding_complete(req: OnboardingCompleteRequest):
     """
     Store completed onboarding answers to parent_profiles table.
     """
+    import traceback
+    
+    print(f"DEBUG: Received onboarding complete request")
+    print(f"DEBUG: user_id={req.user_id}, relationship={req.relationship_type}")
+    print(f"DEBUG: parent_profile_id={req.parent_profile_id}")
+    print(f"DEBUG: answers_json={req.answers_json}")
+    
     if not req.user_id or not req.relationship_type:
         raise HTTPException(
             status_code=400,
@@ -515,12 +522,14 @@ def onboarding_complete(req: OnboardingCompleteRequest):
         # Create or update parent profile
         if req.parent_profile_id:
             # Update existing profile
+            print(f"DEBUG: Updating existing profile")
             profile = update_parent_profile_answers(
                 parent_profile_id=req.parent_profile_id,
                 answers_json=req.answers_json
             )
         else:
             # Create new profile
+            print(f"DEBUG: Creating new profile")
             profile = create_parent_profile(
                 user_id=req.user_id,
                 target_user_id=req.target_user_id,
@@ -528,6 +537,7 @@ def onboarding_complete(req: OnboardingCompleteRequest):
                 answers_json=req.answers_json
             )
         
+        print(f"DEBUG: Success! Profile={profile}")
         return {
             "status": "success",
             "parent_profile_id": profile.get("parent_profile"),
@@ -535,4 +545,7 @@ def onboarding_complete(req: OnboardingCompleteRequest):
         }
         
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        error_trace = traceback.format_exc()
+        print(f"ERROR in onboarding_complete: {e}")
+        print(f"TRACEBACK: {error_trace}")
+        raise HTTPException(status_code=500, detail=f"{str(e)} | Trace: {error_trace[:500]}")
