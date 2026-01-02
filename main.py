@@ -1,13 +1,16 @@
 # main.py
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File, status
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, model_validator
+from uuid import UUID
+from enum import Enum
+from datetime import datetime
+import uuid as uuid_module
 
 from modules.user_profile import (
     create_user,
     update_preferred_language,
-    update_relation,
-    get_user_profile,
+    update_relation, 
     get_user_profile,
     resolve_user_id_by_phone,
     get_user_by_phone,
@@ -101,6 +104,80 @@ class OnboardingCompleteRequest(BaseModel):
 class LoginRequest(BaseModel):
     email: str
     password: str
+
+
+# ================== KNOWLEDGE HUB MODELS ==================
+class KnowledgeHubResponse(BaseModel):
+    id: int
+    slug: str
+    title: str
+    content: str
+    summary: str | None = None
+    life_stage_id: int | None = None
+    perspective_id: int | None = None
+    author_name: str | None = None
+    read_time_minutes: int = 5
+    is_featured: bool = False
+    published_at: datetime | None = None
+    updated_at: datetime | None = None
+
+    class Config:
+        from_attributes = True
+
+
+# ================== SUCCESS STORIES MODELS ==================
+class ShareType(str, Enum):
+    NAMED = "named"
+    ANONYMOUS = "anonymous"
+
+
+class StoryStatus(str, Enum):
+    PENDING = "pending"
+    APPROVED = "approved"
+    PUBLISHED = "published"
+
+
+class StoryBase(BaseModel):
+    share_type: ShareType
+    name: str | None = None
+    city: str = Field(min_length=1)
+    journey_duration: str = Field(min_length=1)
+    challenges: str = Field(min_length=1)
+    emotions: list[str] = Field(min_length=1)
+    treatments: list[str] = Field(min_length=1)
+    emotion_description: str | None = None
+    journey_outcome: str = Field(min_length=1)
+    more_details: str | None = None
+    hope_message: str | None = None
+    photo_url: str | None = None
+
+    @model_validator(mode='after')
+    def check_name_if_named(self):
+        if self.share_type == ShareType.NAMED and not self.name:
+            raise ValueError('name is required when share_type is named')
+        return self
+
+
+class StoryCreate(StoryBase):
+    pass
+
+
+class StoryUpdateStatus(BaseModel):
+    status: StoryStatus
+
+
+class StoryConsent(BaseModel):
+    id: UUID
+
+
+class StoryResponse(StoryBase):
+    id: UUID
+    status: str
+    consent: bool
+    created_at: str
+
+    class Config:
+        from_attributes = True
 
 
 @app.get("/")
@@ -549,3 +626,83 @@ def onboarding_complete(req: OnboardingCompleteRequest):
         print(f"ERROR in onboarding_complete: {e}")
         print(f"TRACEBACK: {error_trace}")
         raise HTTPException(status_code=500, detail=f"{str(e)} | Trace: {error_trace[:500]}")
+
+
+# ================== KNOWLEDGE HUB ROUTES ==================
+@app.get("/api/knowledge-hub/", response_model=list[KnowledgeHubResponse], tags=["knowledge-hub"])
+def get_knowledge_hub_items():
+    """Get all knowledge hub items"""
+    from supabase_client import supabase
+    response = supabase.table("sakhi_knowledge_hub").select("*").order("published_at", desc=True).execute()
+    return [KnowledgeHubResponse.model_validate(item) for item in response.data]
+
+
+@app.get("/api/knowledge-hub/{slug}", response_model=KnowledgeHubResponse, tags=["knowledge-hub"])
+def get_knowledge_hub_item_by_slug(slug: str):
+    """Get a single knowledge hub item by slug"""
+    from supabase_client import supabase
+    response = supabase.table("sakhi_knowledge_hub").select("*").eq("slug", slug).limit(1).execute()
+    if not response.data:
+        raise HTTPException(status_code=404, detail="Knowledge Hub item not found")
+    return KnowledgeHubResponse.model_validate(response.data[0])
+
+
+# ================== SUCCESS STORIES ROUTES ==================
+STORIES_TABLE = "sakhi_success_stories"
+
+
+@app.post("/stories/draft", response_model=StoryResponse, status_code=status.HTTP_201_CREATED, tags=["stories"])
+async def create_story_draft(story_in: StoryCreate):
+    """Create a new story draft"""
+    from supabase_client import supabase
+    data = story_in.model_dump()
+    data["status"] = "pending"
+    data["consent"] = False
+    response = supabase.table(STORIES_TABLE).insert(data).execute()
+    return StoryResponse.model_validate(response.data[0])
+
+
+@app.post("/stories/consent", response_model=StoryResponse, tags=["stories"])
+async def record_consent(consent_in: StoryConsent):
+    """Record user consent for a story"""
+    from supabase_client import supabase
+    response = supabase.table(STORIES_TABLE).update({"consent": True}).eq("id", str(consent_in.id)).execute()
+    if not response.data:
+        raise HTTPException(status_code=404, detail="Story not found")
+    return StoryResponse.model_validate(response.data[0])
+
+
+@app.get("/stories/", response_model=list[StoryResponse], tags=["stories"])
+async def get_published_stories():
+    """Get all published stories"""
+    from supabase_client import supabase
+    response = supabase.table(STORIES_TABLE).select("*").eq("status", "published").order("created_at", desc=True).execute()
+    return [StoryResponse.model_validate(item) for item in response.data]
+
+
+@app.get("/stories/{id}", response_model=StoryResponse, tags=["stories"])
+async def get_story_by_id(id: UUID):
+    """Get a story by ID"""
+    from supabase_client import supabase
+    response = supabase.table(STORIES_TABLE).select("*").eq("id", str(id)).execute()
+    if not response.data:
+        raise HTTPException(status_code=404, detail="Story not found")
+    return StoryResponse.model_validate(response.data[0])
+
+
+@app.put("/stories/{id}/status", response_model=StoryResponse, tags=["stories"])
+async def update_story_status(id: UUID, status_in: StoryUpdateStatus):
+    """Update story status"""
+    from supabase_client import supabase
+    response = supabase.table(STORIES_TABLE).update({"status": status_in.status}).eq("id", str(id)).execute()
+    if not response.data:
+        raise HTTPException(status_code=404, detail="Story not found")
+    return StoryResponse.model_validate(response.data[0])
+
+
+@app.post("/stories/upload", status_code=status.HTTP_201_CREATED, tags=["stories"])
+async def upload_photo(photo: UploadFile = File(...)):
+    """Upload a photo for a story"""
+    unique_name = f"{uuid_module.uuid4()}-{photo.filename}".replace(" ", "-")
+    base_url = "https://example-bucket.s3.amazonaws.com/uploads"
+    return {"photo_url": f"{base_url}/{unique_name}"}
