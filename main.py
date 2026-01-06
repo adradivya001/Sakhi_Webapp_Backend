@@ -150,6 +150,12 @@ class StoryBase(BaseModel):
     more_details: str | None = None
     hope_message: str | None = None
     photo_url: str | None = None
+    summary: str | None = None
+    generated_story: str | None = None
+    slug: str | None = None
+    title: str | None = None
+    stage: str | None = None
+    language: str = "en"
 
     @model_validator(mode='after')
     def check_name_if_named(self):

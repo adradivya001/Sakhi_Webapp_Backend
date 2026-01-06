@@ -111,6 +111,12 @@ class StoryBase(BaseModel):
     more_details: Optional[str] = None
     hope_message: Optional[str] = None
     photo_url: Optional[str] = None
+    summary: Optional[str] = None
+    generated_story: Optional[str] = None
+    slug: Optional[str] = None
+    title: Optional[str] = None
+    stage: Optional[str] = None
+    language: str = "en"
 
     @model_validator(mode='after')
     def check_name_if_named(self):
