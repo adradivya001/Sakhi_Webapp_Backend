@@ -301,6 +301,7 @@ RELATIONSHIP_QUESTIONS: Dict[str, List[Dict[str, Any]]] = {
     "father_in_law": QUESTIONS_FATHER_IN_LAW,
     "mother_in_law": QUESTIONS_MOTHER_IN_LAW,
     "sibling": QUESTIONS_SIBLING,
+    "other": QUESTIONS_SIBLING,  # 'other' family members use sibling questions
 }
 
 def get_questions_for_relationship(relationship_type: str) -> List[Dict[str, Any]]:

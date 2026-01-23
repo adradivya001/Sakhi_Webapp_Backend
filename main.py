@@ -587,6 +587,14 @@ def onboarding_complete(req: OnboardingCompleteRequest):
     """
     Store completed onboarding answers to parent_profiles table.
     """
+    # Log incoming request for debugging
+    print(f"[onboarding/complete] Received request:")
+    print(f"  user_id: {req.user_id}")
+    print(f"  parent_profile_id: {req.parent_profile_id}")
+    print(f"  target_user_id: {req.target_user_id}")
+    print(f"  relationship_type: {req.relationship_type}")
+    print(f"  answers_json: {req.answers_json}")
+    
     if not req.user_id or not req.relationship_type:
         raise HTTPException(
             status_code=400,
@@ -594,29 +602,58 @@ def onboarding_complete(req: OnboardingCompleteRequest):
         )
     
     try:
-        # Create or update parent profile
+        profile = None
+        
+        # Try to update existing profile if parent_profile_id is provided
         if req.parent_profile_id:
-            # Update existing profile
-            profile = update_parent_profile_answers(
+            print(f"[onboarding/complete] Attempting to update existing profile: {req.parent_profile_id}")
+            result = update_parent_profile_answers(
                 parent_profile_id=req.parent_profile_id,
                 answers_json=req.answers_json
             )
-        else:
-            # Create new profile
-            profile = create_parent_profile(
+            # Extract dict from result
+            if isinstance(result, list) and len(result) > 0:
+                profile = result[0]
+            elif isinstance(result, dict):
+                profile = result
+            
+            if profile:
+                print(f"[onboarding/complete] Updated existing profile successfully")
+            else:
+                print(f"[onboarding/complete] Profile not found, will create new one")
+        
+        # Create new profile if update failed or no parent_profile_id provided
+        if not profile:
+            print(f"[onboarding/complete] Creating new profile for user: {req.user_id}")
+            result = create_parent_profile(
                 user_id=req.user_id,
                 target_user_id=req.target_user_id,
                 relationship_type=req.relationship_type,
                 answers_json=req.answers_json
             )
+            # Extract dict from result
+            if isinstance(result, list) and len(result) > 0:
+                profile = result[0]
+            elif isinstance(result, dict):
+                profile = result
+            else:
+                raise Exception(f"Unexpected response from create_parent_profile: {result}")
+        
+        print(f"[onboarding/complete] Success! Profile: {profile}")
+        
+        # Safely get the parent_profile_id
+        parent_profile_id = profile.get("parent_profile_id") if isinstance(profile, dict) else None
         
         return {
             "status": "success",
-            "parent_profile_id": profile.get("parent_profile"),
+            "parent_profile_id": parent_profile_id,
             "profile": profile
         }
         
     except Exception as e:
+        import traceback
+        print(f"[onboarding/complete] ERROR: {str(e)}")
+        print(f"[onboarding/complete] Traceback:\n{traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
