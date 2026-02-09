@@ -35,7 +35,14 @@ HEADERS = {
     "Prefer": "return=representation",
 }
 
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
+from supabase.lib.client_options import ClientOptions
+
+opts = ClientOptions().replace(
+    postgrest_client_timeout=60,  # 60 seconds
+    storage_client_timeout=60,
+    schema="public",
+)
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, options=opts)
 
 
 def supabase_insert(table: str, data: Dict[str, Any]):

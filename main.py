@@ -30,9 +30,15 @@ from modules.model_gateway import get_model_gateway, Route
 from modules.slm_client import get_slm_client
 from modules.onboarding_engine import OnboardingRequest, get_next_question
 from modules.parent_profiles import create_parent_profile, update_parent_profile_answers
+from modules.onboarding_engine import OnboardingRequest, get_next_question
+from modules.parent_profiles import create_parent_profile, update_parent_profile_answers
 from search_hierarchical import hierarchical_rag_query, format_hierarchical_context
+from modules.tools import router as tools_router
 
 app = FastAPI()
+
+# Include Tools Router
+app.include_router(tools_router)
 
 # CORS Configuration - Allow Replit frontend to call this backend
 app.add_middleware(
@@ -98,6 +104,13 @@ class OnboardingCompleteRequest(BaseModel):
     target_user_id: str | None = None
     relationship_type: str
     answers_json: dict
+
+
+class JourneyUpdateRequest(BaseModel):
+    user_id: str
+    stage: str
+    date: str | None = None
+    date_type: str | None = None
 
 
 # Login model
@@ -550,6 +563,62 @@ def set_user_preferred_language(req: UpdatePreferredLanguageRequest):
     return {"status": "success"}
 
 
+@app.post("/api/user/journey")
+def update_user_journey(req: JourneyUpdateRequest):
+    if not req.user_id:
+        raise HTTPException(status_code=400, detail="user_id is required")
+    if not req.stage:
+        raise HTTPException(status_code=400, detail="stage is required")
+
+    # Validate stage enum (optional, but good for data integrity)
+    valid_stages = ["TTC", "PREGNANT", "PARENT"]
+    if req.stage not in valid_stages:
+        raise HTTPException(status_code=400, detail=f"Invalid stage. Must be one of {valid_stages}")
+
+    updates = {
+        "sakhi_journey_stage": req.stage,
+        "sakhi_journey_date": req.date,
+        "sakhi_journey_date_type": req.date_type
+    }
+
+    try:
+        # Remove None values to avoid overwriting with null if that's desired, 
+        # or keep them to allow clearing values. 
+        # Requirement implies updating user profile with these values.
+        # Clean up None values just in case we don't want to unset date if not provided?
+        # Re-reading: Payload: { stage: string, date: string }
+        # logic: update user profile.
+        
+        update_user_profile(req.user_id, updates)
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+    return {"status": "success", "updates": updates}
+
+
+@app.get("/api/user/me")
+def get_current_user_profile(user_id: str):
+    """
+    Fetch current user profile including journey details.
+    """
+    if not user_id:
+        raise HTTPException(status_code=400, detail="user_id parameter is required")
+
+    try:
+        user = get_user_profile(user_id)
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        # Ensure we return the new fields. 
+        # get_user_profile does select="*" so it should be there automatically 
+        # once the DB is updated.
+        return user
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.post("/onboarding/step")
 def onboarding_step(req: OnboardingStepRequest):
     """
@@ -687,7 +756,21 @@ def get_knowledge_hub_items(
     if is_featured is not None:
         query = query.eq("is_featured", is_featured)
         
-    response = query.order("published_at", desc=True).limit(perPage).execute()
+    import time
+    import httpx
+    
+    response = None
+    retries = 3
+    for i in range(retries):
+        try:
+            response = query.order("published_at", desc=True).limit(perPage).execute()
+            break
+        except Exception as e:
+            if i == retries - 1:
+                print(f"Failed to fetch knowledge hub items after {retries} attempts: {e}")
+                raise e
+            print(f"Attempt {i+1} failed: {e}. Retrying...")
+            time.sleep(0.5 * (i + 1))
     
     items = []
     for item in response.data:
@@ -700,12 +783,123 @@ def get_knowledge_hub_items(
     return items
 
 
+@app.get("/api/knowledge-hub/recommendations", response_model=list[KnowledgeHubResponse], tags=["knowledge-hub"])
+def get_knowledge_hub_recommendations(
+    stage: str | None = None,
+    lens: str | None = None,
+    userId: str | None = None,
+    lang: str = "en",
+    limit: int = 3
+):
+    """
+    Get recommended knowledge hub items.
+    Priority:
+    1. Featured items matching stage and lens
+    2. Featured items matching stage only
+    3. Recent items matching stage
+    4. Any featured items
+    """
+    from supabase_client import supabase
+    import time
+    
+    # Map string stage/lens to IDs if necessary (assuming frontend sends names like 'ttc', 'medical')
+    # Or frontend can send IDs. Let's assume frontend sends IDs or we handle strings.
+    # For now, let's map common strings to IDs if the DB uses IDs.
+    # Based on previous context, DB uses IDs (1, 2, 3...)
+    
+    stage_map = {
+        'ttc': 1, 'pregnancy': 2, 'postpartum': 3, 'newborn': 4, 'early-years': 5,
+        'trying-to-conceive': 1, 'pregnant': 2, 'parent': 5 # simplified mapping
+    }
+    lens_map = {
+        'medical': 1, 'social': 2, 'nutrition': 3, 'financial': 4
+    }
+    
+    ls_id = None
+    if stage:
+        ls_id = stage_map.get(stage.lower(), None)
+        # If not in map, maybe it's already an ID (int)
+        if ls_id is None and stage.isdigit():
+            ls_id = int(stage)
+
+    p_id = None
+    if lens:
+        p_id = lens_map.get(lens.lower(), None)
+        if p_id is None and lens.isdigit():
+            p_id = int(lens)
+
+    items = []
+    seen_ids = set()
+
+    def fetch_and_add(query_base, limit_needed):
+        if limit_needed <= 0:
+            return
+        
+        # Add retry logic here as well
+        resp = None
+        for i in range(3):
+            try:
+                resp = query_base.limit(limit_needed).execute()
+                break
+            except Exception as e:
+                if i == 2: print(f"Rec fetch failed: {e}")
+                time.sleep(0.5)
+        
+        if resp and resp.data:
+            for item in resp.data:
+                if item['id'] not in seen_ids:
+                    if lang == "te":
+                        item["title"] = item.get("title_te") or item.get("title")
+                        item["summary"] = item.get("summary_te") or item.get("summary")
+                        item["content"] = item.get("content_te") or item.get("content")
+                    
+                    items.append(KnowledgeHubResponse.model_validate(item))
+                    seen_ids.add(item['id'])
+
+    # Strategy 1: Featured + Stage + Lens
+    if len(items) < limit and ls_id and p_id:
+        q = supabase.table("sakhi_knowledge_hub").select("*").eq("is_featured", True).eq("life_stage_id", ls_id).eq("perspective_id", p_id)
+        fetch_and_add(q, limit - len(items))
+
+    # Strategy 2: Featured + Stage
+    if len(items) < limit and ls_id:
+        q = supabase.table("sakhi_knowledge_hub").select("*").eq("is_featured", True).eq("life_stage_id", ls_id)
+        if p_id: q = q.neq("perspective_id", p_id) # Avoid dups if possible, though seen_ids handles it
+        fetch_and_add(q, limit - len(items))
+
+    # Strategy 3: Any Stage Match (Recent)
+    if len(items) < limit and ls_id:
+        q = supabase.table("sakhi_knowledge_hub").select("*").eq("life_stage_id", ls_id).order("published_at", desc=True)
+        fetch_and_add(q, limit - len(items))
+
+    # Strategy 4: Any Featured
+    if len(items) < limit:
+        q = supabase.table("sakhi_knowledge_hub").select("*").eq("is_featured", True).order("published_at", desc=True)
+        fetch_and_add(q, limit - len(items))
+        
+    # Strategy 5: Fallback to any recent
+    if len(items) < limit:
+        q = supabase.table("sakhi_knowledge_hub").select("*").order("published_at", desc=True)
+        fetch_and_add(q, limit - len(items))
+
+    return items
+
+
 @app.get("/api/knowledge-hub/{slug}", response_model=KnowledgeHubResponse, tags=["knowledge-hub"])
 def get_knowledge_hub_item_by_slug(slug: str, lang: str = "en"):
     """Get a single knowledge hub item by slug with language support"""
     from supabase_client import supabase
-    response = supabase.table("sakhi_knowledge_hub").select("*").eq("slug", slug).limit(1).execute()
-    if not response.data:
+    
+    import time
+    response = None
+    for i in range(3):
+        try:
+            response = supabase.table("sakhi_knowledge_hub").select("*").eq("slug", slug).limit(1).execute()
+            break
+        except Exception:
+            time.sleep(0.5)
+            
+    if not response or not response.data:
         raise HTTPException(status_code=404, detail="Knowledge Hub item not found")
     
     item = response.data[0]
