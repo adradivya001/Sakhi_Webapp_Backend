@@ -3,6 +3,18 @@ Test SLM endpoint integration
 """
 import asyncio
 import sys
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv(override=True)
+print(f"DEBUG: Current Working Directory: {os.getcwd()}")
+endpoint = os.getenv("SLM_ENDPOINT_URL")
+print(f"DEBUG: Loaded SLM_ENDPOINT_URL: '{endpoint}'")
+
+if not endpoint:
+    print("WARNING: SLM_ENDPOINT_URL is not set or empty!")
+
 from modules.slm_client import get_slm_client
 
 

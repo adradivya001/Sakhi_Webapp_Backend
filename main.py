@@ -1,5 +1,5 @@
-# main.py
-from fastapi import FastAPI, HTTPException, UploadFile, File, status
+import time
+from fastapi import FastAPI, HTTPException, UploadFile, File, status, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, model_validator
 from uuid import UUID
@@ -48,6 +48,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.middleware("http")
+async def log_latency(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    process_time = time.time() - start_time
+    print(f"⏱️  WEBAPP LATENCY: {process_time:.2f}s | {request.method} {request.url.path}", flush=True)
+    return response
 
 # Initialize model gateway and SLM client (singleton instances)
 model_gateway = get_model_gateway()
@@ -257,11 +265,15 @@ def login(req: LoginRequest):
 @app.post("/sakhi/chat")
 async def sakhi_chat(req: ChatRequest):
     # 1. Resolve or Create User
-    user = None
-    if req.user_id:
-        user = get_user_profile(req.user_id)
-    elif req.phone_number:
-        user = get_user_by_phone(req.phone_number)
+    try:
+        if req.user_id:
+            user = get_user_profile(req.user_id)
+        elif req.phone_number:
+            user = get_user_by_phone(req.phone_number)
+    except Exception as e:
+        # If it's a UUID format error or similar, treat as user not found
+        logger.warning(f"User resolution failed for {req.user_id or req.phone_number}: {e}")
+        user = None
 
     # If new user (by phone), create them
     if not user:

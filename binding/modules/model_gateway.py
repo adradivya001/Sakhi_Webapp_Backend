@@ -4,7 +4,7 @@ from enum import Enum
 from typing import List
 import numpy as np
 
-from rag import generate_embedding, generate_embeddings
+from rag import generate_embedding
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -268,30 +268,17 @@ class ModelGateway:
         
         logger.info("ModelGateway initialized successfully")
     
-    def _compute_mean_vector(self, examples) -> np.ndarray:
+    def _compute_mean_vector(self, examples: List[str]) -> np.ndarray:
         """
-        Compute the mean embedding vector for a collection of example texts.
+        Compute the mean embedding vector for a list of example texts.
         
         Args:
-            examples: List of example texts or dict of lists of example texts
+            examples: List of example texts for a category
             
         Returns:
             Mean embedding vector as numpy array
         """
-        # Flatten if it's a dictionary
-        if isinstance(examples, dict):
-            flattened = []
-            for category_list in examples.values():
-                flattened.extend(category_list)
-            texts = flattened
-        else:
-            texts = examples
-            
-        if not texts:
-            return None
-            
-        # Use batched embeddings for performance
-        embeddings = generate_embeddings(texts)
+        embeddings = [generate_embedding(example) for example in examples]
         mean_vector = np.mean(embeddings, axis=0)
         return mean_vector
     
